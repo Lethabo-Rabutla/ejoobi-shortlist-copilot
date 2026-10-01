@@ -15,17 +15,17 @@ import java.util.Map;
 @Service 
 public class CvExtractionService {
 
-    private static final String SYSTEM_PROMPT = """
+        private static final String SYSTEM_PROMPT = """
             You extract facts from CVs. Reply with JSON only, using exactly these keys:
             name (string), skills (array of strings), yearsExperience (number),
             city (string), willingToRelocate (boolean),
-            highestQualification (one of NONE, CERTIFICATE, DIPLOMA, DEGREE, POSTGRADUATE).
+            highestQualificationLevel (one of NONE, CERTIFICATE, DIPLOMA, DEGREE, POSTGRADUATE).
             Use only information stated in the CV.
             Never infer age, gender, race or other personal traits.
             If something is not stated, use 0 for yearsExperience, an empty string for text,
-            an empty array for skills, false for willingToRelocate, and NONE for highestQualification.
-            
+            an empty array for skills, false for willingToRelocate, and NONE for highestQualificationLevel.            
             """;
+            
     private final RestClient restClient;
     private final JsonMapper jsonMapper;
     private final String deployment;
