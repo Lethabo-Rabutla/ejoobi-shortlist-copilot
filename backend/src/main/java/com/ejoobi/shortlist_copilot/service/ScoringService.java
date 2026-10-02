@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.Map;
 
 @Service
 public class ScoringService {
@@ -43,10 +44,30 @@ public class ScoringService {
     }
 
     // Same city = full marks. Willing to relocate = 60%. Otherwise 0%.
-    private double locationRatio(JobRequirements job, CandidateProfile candidate) {
-        if (job.city() != null && job.city().equalsIgnoreCase(candidate.city()))
-            return 1.0;
-        return candidate.willingToRelocate() ? 0.6 : 0.0;
+    private static final Map<String, String> METRO = Map.ofEntries(
+            Map.entry("randburg", "johannesburg"),
+            Map.entry("sandton", "johannesburg"),
+            Map.entry("soweto", "johannesburg"),
+            Map.entry("roodepoort", "johannesburg"),
+            Map.entry("midrand", "johannesburg"),
+            Map.entry("fourways", "johannesburg"),
+            Map.entry("centurion", "tshwane"),
+            Map.entry("pretoria", "tshwane"));
+
+    private String metroOf(String place) {
+        if (place == null) return "";
+        String p = place.trim().toLowerCase();
+        for (Map.Entry<String, String> entry : METRO.entrySet()) {
+            if (p.contains(entry.getKey())) return entry.getValue();
+        }
+        return p;
+    }
+
+    private double locationRatio(JobRequirements job, CandidateProfile c) {
+        String jobCity = metroOf(job.city());
+        String candidateCity = metroOf(c.city());
+        if (!jobCity.isBlank() && jobCity.equals(candidateCity)) return 1.0;
+        return c.willingToRelocate() ? 0.6 : 0.0;
     }
 
     // Meets or exceeds the required level = full marks, otherwise partial credit.

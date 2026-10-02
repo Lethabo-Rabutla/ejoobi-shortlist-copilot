@@ -194,7 +194,7 @@ function App() {
                 max={15}
               />
 
-              <h3>What the ShortList read from the CV</h3>
+              <h3>What ShortList read from the CV</h3>
               <table>
                 <tbody>
                   <tr>
@@ -215,7 +215,9 @@ function App() {
                   </tr>
                   <tr>
                     <td>Willing to relocate</td>
-                    <td>{result.candidate.willingToRelocate ? "Yes" : "No"}</td>
+                    <td>
+                      {result.candidate.willingToRelocate ? "Yes" : "Not stated"}
+                    </td>
                   </tr>
                   <tr>
                     <td>Qualification</td>

@@ -21,7 +21,10 @@ public class ExplanationService {
             candidateMessage (string: a short, polite draft update for the candidate that
             does not mention the score and does not reject them).
             Use only the data provided. Never mention or infer age, gender, race or other
-            personal traits. A human recruiter makes the final decision.
+            personal traits. n the candidate data, willingToRelocate=false only means the CV does not say.
+            Never state or imply that the candidate is unwilling to relocate.
+            If the location score is the full 20, do not list location as a gap
+            and do not ask about relocation. A human recruiter makes the final decision.
             """;
 
     private final AzureOpenAiClient aiClient;
