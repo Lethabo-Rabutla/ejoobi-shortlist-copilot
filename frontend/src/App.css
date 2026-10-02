@@ -1,0 +1,98 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #f4f4f0;
+  color: #222;
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+header {
+  border-bottom: 2px solid #2e6f57;
+  margin-bottom: 24px;
+}
+
+h1 { margin: 0; }
+header p { margin: 4px 0 16px; color: #555; }
+h2 { font-size: 18px; margin: 20px 0 8px; }
+h3 { font-size: 15px; margin: 20px 0 4px; }
+
+/* two columns: form on the left, result on the right */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+form, .output {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px 20px 20px;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+input, select, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font: inherit;
+}
+
+button {
+  margin-top: 8px;
+  padding: 8px 20px;
+  background: #2e6f57;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled { background: #888; cursor: wait; }
+
+.note { font-size: 13px; color: #666; }
+.error { color: #b00020; }
+
+/* result */
+.total { font-size: 42px; font-weight: bold; margin: 0 0 8px; }
+.total small { font-size: 16px; font-weight: normal; color: #666; }
+
+.bar {
+  display: grid;
+  grid-template-columns: 110px 1fr 70px;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  margin: 4px 0;
+}
+
+progress { width: 100%; accent-color: #2e6f57; }
+
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+td { border: 1px solid #ddd; padding: 4px 8px; }
+td:first-child { width: 45%; background: #f7f7f7; }
+
+.message {
+  background: #f7f7f7;
+  border-left: 3px solid #2e6f57;
+  padding: 8px 12px;
+}
+
+/* stack the columns on small screens */
+@media (max-width: 800px) {
+  .layout { grid-template-columns: 1fr; }
+}

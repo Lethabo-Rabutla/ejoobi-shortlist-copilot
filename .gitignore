@@ -4,3 +4,7 @@ target/
 node_modules/
 .idea/
 .vscode/
+# CVs contain personal data, so never commit them
+*.pdf
+*.docx
+test-cvs/
