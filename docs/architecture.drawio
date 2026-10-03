@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net">
   <diagram id="arch" name="Architecture">
-    <mxGraphModel dx="1299" dy="839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="860" math="0" shadow="0">
+    <mxGraphModel dx="1259" dy="839" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1250" pageHeight="860" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -62,7 +62,9 @@
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="c21" edge="1" parent="1" source="c7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;endFill=1;html=1;fontSize=11;labelBackgroundColor=default;exitX=1;exitY=0.45;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="c10" value="B. extract facts">
-          <mxGeometry relative="1" as="geometry" />
+          <mxGeometry relative="1" x="0.0164" y="-17" as="geometry">
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
         </mxCell>
         <mxCell id="c22" edge="1" parent="1" source="c7" style="edgeStyle=orthogonalEdgeStyle;rounded=1;endArrow=block;endFill=1;html=1;fontSize=11;labelBackgroundColor=default;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="c11" value="C. score">
           <mxGeometry relative="1" as="geometry" />

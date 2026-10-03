@@ -37,12 +37,12 @@ PDF or text  ->  Extract facts (AI)  ->  Score (Java)  ->  Explain (AI)  ->  Res
 
 ### Scoring rules
 
-| Category | Max | Rule |
-|---|---|---|
-| Skills | 40 | Share of the job's required skills the candidate has (exact match, case-insensitive) |
-| Experience | 25 | Candidate years divided by required years, capped at 100% |
-| Location | 20 | Same city or metro area = 100%. Stated willingness to relocate = 60%. Otherwise 0 |
-| Qualifications | 15 | Meets or exceeds the required level = 100%, otherwise partial credit by level |
+| Category       | Max | Rule                                                                                 |
+| -------------- | --- | ------------------------------------------------------------------------------------ |
+| Skills         | 40  | Share of the job's required skills the candidate has (exact match, case-insensitive) |
+| Experience     | 25  | Candidate years divided by required years, capped at 100%                            |
+| Location       | 20  | Same city or metro area = 100%. Stated willingness to relocate = 60%. Otherwise 0    |
+| Qualifications | 15  | Meets or exceeds the required level = 100%, otherwise partial credit by level        |
 
 Qualification levels, in order: `NONE`, `CERTIFICATE`, `DIPLOMA`, `DEGREE`, `POSTGRADUATE`.
 
@@ -52,13 +52,13 @@ Qualification levels, in order: `NONE`, `CERTIFICATE`, `DIPLOMA`, `DEGREE`, `POS
 
 Editable source: `docs/architecture.drawio`.
 
-| Part | Technology |
-|---|---|
-| Frontend | React (Vite) |
-| Backend | Java 21, Spring Boot 4 |
-| PDF reading | Apache PDFBox |
-| AI | Azure OpenAI (`gpt-4.1-mini`) in Microsoft Foundry |
-| Hosting | Azure App Service (Linux, Java SE) |
+| Part        | Technology                                         |
+| ----------- | -------------------------------------------------- |
+| Frontend    | React (Vite)                                       |
+| Backend     | Java 21, Spring Boot 4                             |
+| PDF reading | Apache PDFBox                                      |
+| AI          | Azure OpenAI (`gpt-4.1-mini`) in Microsoft Foundry |
+| Hosting     | Azure App Service (Linux, Java SE)                 |
 
 The React app is built into static files and served by the Spring Boot app, so the whole product ships as **one jar**. The browser only talks to the Java backend. The Azure OpenAI key lives only on the server.
 
@@ -78,6 +78,7 @@ docs/       architecture diagram and solution write-up
 ## API
 
 ### `POST /api/extract-text`
+
 Reads a PDF and returns its text. The file is processed in memory and is not stored.
 
 - Body: `multipart/form-data` with a `file` field (PDF, max 5 MB)
@@ -85,6 +86,7 @@ Reads a PDF and returns its text. The file is processed in memory and is not sto
 - Errors: `400` with a readable message (not a PDF, empty file, or a scanned PDF with no text)
 
 ### `POST /api/evaluate`
+
 Runs the full pipeline.
 
 Request:
@@ -107,16 +109,26 @@ Response:
 ```json
 {
   "candidate": {
-    "name": "...", "skills": ["..."], "yearsExperience": 1.0, "city": "...",
-    "willingToRelocate": true, "highestQualificationLevel": "DEGREE"
+    "name": "...",
+    "skills": ["..."],
+    "yearsExperience": 1.0,
+    "city": "...",
+    "willingToRelocate": true,
+    "highestQualificationLevel": "DEGREE"
   },
   "score": {
-    "skills": 26.7, "experience": 8.3, "location": 12.0,
-    "qualifications": 15.0, "total": 62.0
+    "skills": 26.7,
+    "experience": 8.3,
+    "location": 12.0,
+    "qualifications": 15.0,
+    "total": 62.0
   },
   "explanation": {
-    "summary": "...", "strengths": ["..."], "gaps": ["..."],
-    "interviewQuestions": ["... (5 items)"], "candidateMessage": "..."
+    "summary": "...",
+    "strengths": ["..."],
+    "gaps": ["..."],
+    "interviewQuestions": ["... (5 items)"],
+    "candidateMessage": "..."
   }
 }
 ```
@@ -171,11 +183,11 @@ cd backend && mvn test
 
 ## Configuration
 
-| Variable | Meaning |
-|---|---|
-| `AZURE_OPENAI_ENDPOINT` | Base address of the Azure OpenAI resource, for example `https://<resource-name>.openai.azure.com` (no trailing path) |
-| `AZURE_OPENAI_API_KEY` | Key for that resource. Keep it secret |
-| `AZURE_OPENAI_DEPLOYMENT` | Name of the model deployment (default `gpt-4.1-mini`) |
+| Variable                  | Meaning                                                                                                              |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `AZURE_OPENAI_ENDPOINT`   | Base address of the Azure OpenAI resource, for example `https://<resource-name>.openai.azure.com` (no trailing path) |
+| `AZURE_OPENAI_API_KEY`    | Key for that resource. Keep it secret                                                                                |
+| `AZURE_OPENAI_DEPLOYMENT` | Name of the model deployment (default `gpt-4.1-mini`)                                                                |
 
 Create the model deployment in Microsoft Foundry (Discover, then Models, then `gpt-4.1-mini`, deployment type Standard) and copy the endpoint and key from the Foundry home page.
 
@@ -216,12 +228,12 @@ To stop all charges after the assessment, delete the resource group.
 
 Four fictional candidates were used to check the scoring. Against the default job (Senior Python Developer, skills Python, Java, SQL, 3 years, Johannesburg, DEGREE):
 
-| Candidate | Profile | Expected score |
-|---|---|---|
-| Nomsa Dlamini | Strong match, Sandton | about 100 |
-| Pieter van Wyk | No Java, Cape Town, open to relocating | about 78.7 |
-| Sipho Khumalo | IT support, Durban, certificate | about 26.6 |
-| Ayesha Naidoo | All skills, 2 years, diploma, Midrand | about 86.7 |
+| Candidate      | Profile                                | Expected score |
+| -------------- | -------------------------------------- | -------------- |
+| Nomsa Dlamini  | Strong match, Sandton                  | about 100      |
+| Pieter van Wyk | No Java, Cape Town, open to relocating | about 78.7     |
+| Sipho Khumalo  | IT support, Durban, certificate        | about 26.6     |
+| Ayesha Naidoo  | All skills, 2 years, diploma, Midrand  | about 86.7     |
 
 The PDFs are not stored in this repository (`*.pdf` is ignored) because CVs are personal data. Create fictional CVs of your own to test.
 
