@@ -48,7 +48,7 @@ Qualification levels, in order: `NONE`, `CERTIFICATE`, `DIPLOMA`, `DEGREE`, `POS
 
 ## Architecture
 
-![Architecture](docs/architecture.png)
+![Architecture](docs/docs/architecture.drawio.png)
 
 Editable source: `docs/architecture.drawio`.
 
