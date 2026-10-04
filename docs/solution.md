@@ -3,7 +3,7 @@
 This document answers the four questions in the task brief:
 
 1. [The pain point](#1-the-pain-point)
-2. [How thw agent solves it](#2-how-the-agent-solves-it)
+2. [How the agent solves it](#2-how-the-agent-solves-it)
 3. [How it scales to customers worldwide](#3-how-it-scales-to-customers-worldwide)
 4. [How it can be improved after this first version](#4-how-it-can-be-improved)
 
