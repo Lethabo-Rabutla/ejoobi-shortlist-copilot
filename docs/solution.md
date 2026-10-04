@@ -11,19 +11,32 @@ The system design is in [architecture.drawio.png](architecture.drawio.png). Setu
 
 ## 1. The pain point
 
-**Who has it:** recruiters and hiring managers who use Ejoobi to find candidates.
+**Who has it:** recruiters, agencies and small hiring teams who use Ejoobi to shortlist candidates.
 
-Ejoobi ranks candidates with a match score. A score such as "88%" is useful for sorting, but it does not answer the questions a recruiter actually has:
+Ejoobi's website describes the problem: hiring teams spend about 3 weeks screening CVs manually per role, and about 1 in 3 hires go wrong because of rushed decisions made under admin pressure. Ejoobi answers this with AI matching, where each candidate gets a percentage score based on skills (40%), experience (25%), location (20%) and qualifications (15%), ranked by fit.
 
-- **Why** did this person score 88%?
-- What is **missing** compared with the job?
-- What should I **ask** them in the interview?
-- What do I **tell** the candidate next?
+That solves the sorting problem. A percentage on its own does not show:
 
-Without those answers the recruiter has to open each CV and read it to trust the number, then write interview questions and candidate messages by hand. The score saves time on sorting, but the reading and writing work is still manual. CVs also arrive as PDFs in many different layouts, which adds a copy-and-paste step.
+- **why** one candidate scored 92% and another 88%
+- what is **missing** compared with the job
+- what to **ask** in the interview
+- how to **justify** the shortlist to a client, a manager or the candidate
 
-**The problem to solve:** turn a CV and a job into a result the recruiter can trust and act on within seconds, without removing the recruiter from the decision.
+This matters most for agencies and HR teams, who present shortlists to clients and have to defend their choices, and for anyone deciding under time pressure. The score tells a recruiter who to call first, but not what to say when they call.
 
+CVs also still arrive outside the platform, by email, WhatsApp and spreadsheets, as PDFs in many layouts.
+
+**The problem to solve:** give the recruiter an explained, usable result for any CV in seconds, without removing the recruiter from the decision.
+
+*Note: this write-up is based on Ejoobi's public website (ejoobi.com). I have not seen inside the portal, so if it already shows a per-category breakdown, the agent adds written reasoning, tailored questions and a message draft on top of it.*
+
+### Where it fits in Ejoobi
+
+Ejoobi's pipeline runs Applied, Matched, Screened, Shortlisted, Interview, Outcome. The match score ranks candidates at the Matched stage. Shortlist Copilot sits between Matched and Screened: it explains the score and prepares the recruiter for screening and interview.
+
+### What is new and what overlaps
+
+Ejoobi already offers AI tools for job descriptions and assessment questions, and automated SMS and email updates. Shortlist Copilot is different in two ways: its interview questions are built from one candidate's gaps against one specific job, and its message is a personal draft for the recruiter to edit, not an automated stage notification.
 ## 2. How the agent solves it
 
 A recruiter uploads a CV (PDF) or pastes its text, enters the job requirements, and presses Evaluate. The agent returns a score with its breakdown, a plain-language explanation, five interview questions, and a draft message to the candidate.
@@ -100,6 +113,9 @@ The current app is deliberately small: one stateless service and no database. Th
 - **Authentication and tenants.** Each client signs in (for example with Microsoft Entra ID or OAuth), and its data, settings and usage are kept separate.
 - **API first.** The `/api/evaluate` endpoint can already be called by another system, so Ejoobi's own platform could call it directly and show the results inside the existing candidate screen.
 - **Operations.** Application Insights is already enabled. At scale this grows into dashboards, alerts and usage reports per client.
+- **Metered usage.** Ejoobi sells its AI tools through monthly credits per plan. Each evaluation (two model calls) could be metered the same way, so heavy users on the Scale plan pay for what they use.
+- **First users.** Agencies and HR teams managing many roles at once are the natural first customers, because they must justify shortlists to clients.
+- **Expansion.** Ejoobi says it is expanding across Africa, so language support and country-specific qualification names matter early, not later.
 
 ## 4. How it can be improved
 
